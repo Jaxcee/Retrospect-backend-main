@@ -48,8 +48,6 @@ public class RoomService implements IRoomService{
         return roomRepository.save(createRoomEntity);
     }
 
-
-
     @Override
 
     public CreateRoomEntity updateRoom(long roomId, CreateRoomEntity updatedRoomEntity) {
@@ -86,6 +84,15 @@ public class RoomService implements IRoomService{
     public boolean checkRoomAccess(String email, long roomId) {
         CreateRoomEntity room = roomRepository.findById(roomId).orElse(null);
         return room != null && room.getAllowedEmails().stream().anyMatch(e -> e.getEmail().equals(email));
+    }
+    @Override
+    public CreateRoomEntity getRoomById(long roomId) {
+        Optional<CreateRoomEntity> optionalRoomEntity = roomRepository.findById(roomId);
+        if (optionalRoomEntity.isPresent()) {
+            return optionalRoomEntity.get();
+        } else {
+            throw new NoSuchElementException("Room with id " + roomId + " not found");
+        }
     }
 
 

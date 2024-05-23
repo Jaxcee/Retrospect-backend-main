@@ -52,4 +52,9 @@ public class Roomcontroller {
         }
     }
 
+    @PutMapping("/getRoomById/{roomId}")
+    public CreateRoomEntity getRoomById(@PathVariable long roomId){
+        return iRoomService.getRoomById(roomId);
+    }
+
 }
